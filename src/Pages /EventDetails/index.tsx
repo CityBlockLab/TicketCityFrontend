@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin,  Link, Users } from 'lucide-react';
+import { EventImg1 } from '../../assets';
 
 const EventDetails: React.FC = () => {
   const navigate = useNavigate();
  // const { id } = useParams();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background min-h-screen">
       <div className="max-w-[80%] mx-auto py-8">
         {/* Back Button */}
         <button 
@@ -35,16 +36,16 @@ const EventDetails: React.FC = () => {
         </div>
 
         {/* Banner Image */}
-        <div className="w-full aspect-[2/1] rounded-lg overflow-hidden mb-8">
+        <div className="w-full  rounded-lg overflow-hidden mb-8">
           <img 
-            src="/event-banner.jpg" 
+            src={EventImg1} 
             alt="Event Banner" 
             className="w-full h-full object-cover"
           />
         </div>
 
         {/* Event Info Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="flex flex-col gap-8">
           {/* Host Information */}
           <div className="rounded-lg border border-borderStroke p-6">
             <h2 className="font-poppins text-large text-white mb-4">
@@ -136,6 +137,8 @@ const EventDetails: React.FC = () => {
             ✉️ Need help? Contact support@ticketcity.com
           </p>
         </div>
+
+
       </div>
     </div>
   );
