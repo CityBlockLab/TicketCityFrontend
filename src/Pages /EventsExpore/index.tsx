@@ -10,7 +10,6 @@ const ExploreEvents: React.FC = () => {
       <div className="flex flex-col min-h-screen">
         <Hero />
         <EventsSection />
-        <Footer />
       </div>
     </Layout>
   );

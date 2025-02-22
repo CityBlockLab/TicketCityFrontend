@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
-import { Search, Bell, Plus } from 'lucide-react';
+import React, { useState } from "react";
+import { Search, Bell, Plus } from "lucide-react";
+import { useConnectWallet, useWallets } from "@privy-io/react-auth";
 
 const Header: React.FC = () => {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
+
   const walletAddress = "0x1234...5678";
+
+  const { connectWallet } = useConnectWallet({
+    onSuccess() {
+      console.log("Connected");
+      setIsWalletConnected(true);
+    },
+  });
 
   return (
     <header className="bg-background border-b border-borderStroke p-4">
@@ -28,10 +37,9 @@ const Header: React.FC = () => {
         <div className="flex items-center gap-4">
           {/* Connect Wallet Button */}
           <button
-            onClick={() => setIsWalletConnected(!isWalletConnected)}
-            className="px-4 py-2 rounded-full bg-searchBg shadow-button-inset text-white font-inter text-sm"
-          >
-            {isWalletConnected ? walletAddress : 'Connect Wallet'}
+            onClick={connectWallet}
+            className="px-4 py-2 rounded-full bg-searchBg shadow-button-inset text-white font-inter text-sm">
+            {isWalletConnected ? walletAddress : "Connect Wallet"}
           </button>
 
           {/* Notification Icon */}
