@@ -1,18 +1,20 @@
-import React from 'react';
-import Layout from './components /Layout';
-import Hero from './components /Hero';
-import EventsSection from './components /Events/EventsSection';
-import Footer from './components /Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ExploreEvents from './Pages /EventsExpore';
+import EventDetails from './Pages /EventDetails';
+import './App.css';
+//import Dashboard from './pages/Dashboard';
 
 const App: React.FC = () => {
   return (
-    <Layout>
-      <div className="flex flex-col min-h-screen">
-        <Hero />
-        <EventsSection />
-        <Footer />
-      </div>
-    </Layout>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ExploreEvents />} />
+        <Route path="/explore" element={<ExploreEvents />} />
+        <Route path="/event/:id" element={<EventDetails />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        {/* Add other routes as needed */}
+      </Routes>
+    </Router>
   );
 };
 
