@@ -77,7 +77,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, viewMode }) => {
 
           <button 
             onClick={() => navigate(`/event/${event.id}`)}
-            className="w-full bg-primary rounded-lg px-4 py-2 text-white font-inter text-sm"
+            className={`${isGrid ? 'w-full bg-primary rounded-lg px-4 py-2 text-white font-inter text-sm' : ''}`} 
           >
             View Details
           </button>
