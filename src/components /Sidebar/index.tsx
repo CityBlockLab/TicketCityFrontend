@@ -8,14 +8,18 @@ import {
   Shield, 
   Users,
   Settings,
-  ChevronDown 
+  ChevronDown
 } from 'lucide-react';
-import { NavLink } from '../../types';
 
-const navLinks: NavLink[] = [
+interface SidebarProps {
+  onNavigate: (path: string) => void;
+  currentPath: string;
+}
+
+const navLinks = [
   { icon: <LayoutDashboard />, label: 'Dashboard', path: '/dashboard' },
   { icon: <Compass />, label: 'Explore Events', path: '/explore' },
-  { icon: <PlusCircle />, label: 'Create Event', path: '/create' },
+  { icon: <PlusCircle />, label: 'Create Event', path: '/create-event' },
   { icon: <Ticket />, label: 'My Tickets', path: '/tickets' },
   { icon: <Wallet />, label: 'My Wallet', path: '/wallet' },
   { icon: <Shield />, label: 'Ticket Verification', path: '/verify' },
@@ -23,9 +27,7 @@ const navLinks: NavLink[] = [
   { icon: <Settings />, label: 'Settings', path: '/settings' },
 ];
 
-const Sidebar = () => {
-  const [activePath, setActivePath] = React.useState('/explore');
-
+const Sidebar: React.FC<SidebarProps> = ({ onNavigate, currentPath }) => {
   return (
     <div className="w-64 h-full bg-background border-r border-borderStroke flex flex-col">
       {/* Logo */}
@@ -47,22 +49,18 @@ const Sidebar = () => {
       {/* Navigation Links */}
       <nav className="flex-1 pt-6">
         {navLinks.map((link) => (
-          <a
+          <button
             key={link.path}
-            href={link.path}
-            onClick={(e) => {
-              e.preventDefault();
-              setActivePath(link.path);
-            }}
-            className={`flex items-center gap-3 px-6 py-3 text-lg transition-colors ${
-              activePath === link.path
-                ? 'text-white'
-                : 'text-textGray hover:text-white'
+            onClick={() => onNavigate(link.path)}
+            className={`w-full flex items-center gap-3 px-6 py-3 text-lg transition-colors ${
+              currentPath === link.path
+                ? 'text-white bg-primary/10'
+                : 'text-textGray hover:text-white hover:bg-primary/5'
             }`}
           >
             <span className="w-6 h-6">{link.icon}</span>
             <span className="font-inter font-normal">{link.label}</span>
-          </a>
+          </button>
         ))}
       </nav>
     </div>
