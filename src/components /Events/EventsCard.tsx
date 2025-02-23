@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -77,7 +76,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, viewMode }) => {
 
           <button 
             onClick={() => navigate(`/event/${event.id}`)}
-            className={`${isGrid ? 'w-full bg-primary rounded-lg px-4 py-2 text-white font-inter text-sm' : ''}`} 
+            className={`${isGrid ? 'w-full bg-primary rounded-lg px-4 py-2 text-white font-inter text-sm' : 'bg-primary rounded-lg px-4 py-2 text-white font-inter text-sm'}`} 
           >
             View Details
           </button>
