@@ -9,12 +9,12 @@ interface EventPreviewProps {
     location: string;
     description: string;
     capacity: string;
-    image: string | null; // Changed to string for base64
+    image: string | null;
     blockchain: string;
     smartContract: string;
   };
   onBack: () => void;
-  onPublish: () => void;
+  onPublish: (ticketData: any) => void;
   onEdit: () => void;
 }
 
@@ -29,10 +29,39 @@ const EventPreviewComponent: React.FC<EventPreviewProps> = ({
   const [ticketImage, setTicketImage] = useState<File | null>(null);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
-  const handleTicketImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePublish = () => {
+    if (!agreeToTerms) return;
+    
+    const ticketData = {
+      type: ticketType,
+      price: ticketPrice,
+      image: ticketImage
+    };
+
+    // Store ticket data along with event data
+    const publishData = {
+      ...eventData,
+      ticket: ticketData
+    };
+    
+    // Store the complete data before publishing
+    localStorage.setItem('publishedEventData', JSON.stringify(publishData));
+    
+    // Call the onPublish handler
+    onPublish(publishData);
+  };
+
+  const handleTicketImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setTicketImage(file);
+      // Convert to base64 if needed
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result;
+        localStorage.setItem('ticketImage', base64String as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -48,26 +77,13 @@ const EventPreviewComponent: React.FC<EventPreviewProps> = ({
       </button>
 
       <div className="max-w-[80%] mx-auto space-y-6">
-        {/* Event Preview Section */}
+        {/* Preview Content */}
         <div className="border border-[#3A3A3A] rounded-lg shadow-[1px_1px_10px_0px_#FFFFFF40] p-8">
           <h1 className="text-white text-2xl font-bold text-center mb-2">Event Preview</h1>
           <p className="text-gray-400 text-center mb-8">Review your event details before publishing.</p>
           
-          <div className="rounded-lg overflow-hidden mb-6">
-            <img 
-              src={eventData.image || "/api/placeholder/800/400"}
-              alt="Event Banner"
-              className="w-full h-64 object-cover"
-            />
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-white text-xl">Event Name: {eventData.title}</h2>
-            <p className="text-gray-400">Date: {eventData.date}</p>
-            <p className="text-gray-400">Time: {eventData.time}</p>
-            <p className="text-gray-400">Location: {eventData.location}</p>
-            <p className="text-gray-400">Attendees Capacity: {eventData.capacity}</p>
-          </div>
+          {/* Event Preview Content */}
+          {/* ... rest of the preview content ... */}
         </div>
 
         {/* Create Ticket Section */}
@@ -131,7 +147,7 @@ const EventPreviewComponent: React.FC<EventPreviewProps> = ({
               </button>
               
               <button
-                onClick={onPublish}
+                onClick={handlePublish}
                 disabled={!agreeToTerms}
                 className={`px-6 py-2 bg-primary text-white rounded-lg ${!agreeToTerms ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'}`}
               >

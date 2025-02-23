@@ -32,6 +32,17 @@ const EventPreview: React.FC = () => {
     }
   }, [navigate]);
 
+  const handlePublish = (publishData: any) => {
+    try {
+      // Store the complete data
+      localStorage.setItem('publishedEventData', JSON.stringify(publishData));
+      // Navigate to published events page
+      navigate('/published-events');
+    } catch (error) {
+      console.error('Error publishing event:', error);
+    }
+  };
+
   if (!eventData) {
     return null;
   }
@@ -41,7 +52,7 @@ const EventPreview: React.FC = () => {
       <EventPreviewComponent 
         eventData={eventData}
         onBack={() => navigate('/create-event')}
-        onPublish={() => navigate('/published-events')}
+        onPublish={handlePublish}
         onEdit={() => navigate('/create-event')}
       />
     </div>
