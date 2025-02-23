@@ -8,9 +8,15 @@ interface PublishedEventsProps {
     date: string;
     time: string;
     location: string;
+    description: string;
     capacity: string;
-    ticketPrice: string;
-    image: File | null;
+    image: string;
+    blockchain: string;
+    smartContract: string;
+    ticket?: {
+      type: string;
+      price: string;
+    };
   };
 }
 
@@ -42,7 +48,7 @@ const PublishedEventsComponent: React.FC<PublishedEventsProps> = ({ onBack, even
 
           <div className="rounded-lg overflow-hidden mb-6">
             <img 
-              src={eventData.image ? URL.createObjectURL(eventData.image) : "/api/placeholder/800/400"}
+              src={eventData.image}
               alt="Event Banner"
               className="w-full h-64 object-cover"
             />
@@ -67,15 +73,19 @@ const PublishedEventsComponent: React.FC<PublishedEventsProps> = ({ onBack, even
               <div>
                 <p className="text-gray-400">Attendees Capacity: {eventData.capacity}</p>
               </div>
-              <div>
-                <p className="text-gray-400">Ticket Price: {eventData.ticketPrice} XFI</p>
-              </div>
+              {eventData.ticket && (
+                <div>
+                  <p className="text-gray-400">
+                    Ticket Price: {eventData.ticket.type === 'FREE' ? 'FREE' : `${eventData.ticket.price} XFI`}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="flex justify-center gap-4 pt-6">
             <button className="px-6 py-2 bg-primary text-white rounded-lg flex items-center gap-2">
-              <span>Share Event</span>
+              Share Event
             </button>
           </div>
 

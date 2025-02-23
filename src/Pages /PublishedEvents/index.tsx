@@ -9,10 +9,13 @@ interface EventData {
   location: string;
   description: string;
   capacity: string;
-  image: File | null;
+  image: string;
   blockchain: string;
   smartContract: string;
-  ticketPrice: string;
+  ticket?: {
+    type: string;
+    price: string;
+  };
 }
 
 const PublishedEvents: React.FC = () => {
@@ -20,29 +23,29 @@ const PublishedEvents: React.FC = () => {
   const [eventData, setEventData] = useState<EventData | null>(null);
 
   useEffect(() => {
-    // Get published event data from localStorage
-    const storedData = localStorage.getItem('publishedEventData');
-    if (storedData) {
-      setEventData(JSON.parse(storedData));
-    } else {
-      // If no data, redirect back to explore
+    try {
+      const storedData = localStorage.getItem('publishedEventData');
+      if (storedData) {
+        setEventData(JSON.parse(storedData));
+      } else {
+        // If no published event data, redirect to explore
+        navigate('/explore');
+      }
+    } catch (error) {
+      console.error('Error loading published event data:', error);
       navigate('/explore');
     }
   }, [navigate]);
 
-  const handleBack = () => {
-    navigate('/explore');
-  };
-
   if (!eventData) {
-    return null; // or a loading state
+    return null;
   }
 
   return (
     <div className="">
       <PublishedEventsComponent 
-        onBack={handleBack}
         eventData={eventData}
+        onBack={() => navigate('/explore')}
       />
     </div>
   );
