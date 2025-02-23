@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../../components /Layout';
 import Hero from '../../components /Hero';
 import EventsSection from '../../components /Events/EventsSection';
-import Footer from '../../components /Footer';
 
 const ExploreEvents: React.FC = () => {
   return (
