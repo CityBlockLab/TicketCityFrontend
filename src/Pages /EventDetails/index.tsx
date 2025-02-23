@@ -1,24 +1,21 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin,  Link, Users } from 'lucide-react';
+import { ArrowLeft, MapPin, Link, Users } from 'lucide-react';
 import { EventImg1 } from '../../assets';
 
-const EventDetails: React.FC = () => {
-  const navigate = useNavigate();
- // const { id } = useParams();
 
+const EventDetails = () => {
   return (
-    <div className="bg-background min-h-screen">
-      <div className="max-w-[80%] mx-auto py-8">
-        {/* Back Button */}
-        <button 
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 mb-8 hover:opacity-80"
-        >
-          <ArrowLeft className="w-5 h-5 text-white" />
-          <span className="font-inter text-regular text-white">Back</span>
-        </button>
+    <div className="bg-background min-h-screen p-8">
+      {/* Back Button - Positioned separately */} 
+      <button 
+        onClick={() => console.log('Navigate back')}
+        className="mb-8 flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-[#3A3A3A] bg-background hover:opacity-80 shadow-[inset_1px_1px_10px_0px_#FFFFFF40]"
+      >
+        <ArrowLeft className="w-5 h-5 text-white" />
+        <span className="font-inter text-regular text-white">Back</span>
+      </button>
 
+      {/* Main Content Container with Border and Shadow */}
+      <div className="max-w-[80%] mx-auto border border-[#3A3A3A] rounded-lg shadow-[1px_1px_10px_0px_#FFFFFF40] p-8">
         {/* Event Header */}
         <div className="text-center mb-8">
           <h1 className="font-exo text-xlarge tracking-tightest text-white mb-4">
@@ -36,9 +33,9 @@ const EventDetails: React.FC = () => {
         </div>
 
         {/* Banner Image */}
-        <div className="w-full  rounded-lg overflow-hidden mb-8">
+        <div className="w-full rounded-lg overflow-hidden mb-8">
           <img 
-            src={EventImg1} 
+            src={EventImg1}
             alt="Event Banner" 
             className="w-full h-full object-cover"
           />
@@ -137,8 +134,6 @@ const EventDetails: React.FC = () => {
             ✉️ Need help? Contact support@ticketcity.com
           </p>
         </div>
-
-
       </div>
     </div>
   );
