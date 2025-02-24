@@ -8,7 +8,8 @@ import {
   Shield, 
   Users,
   Settings,
-  ChevronDown
+  ChevronDown,
+  QrCode  // Added for Attendance Scan
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -20,9 +21,11 @@ const navLinks = [
   { icon: <LayoutDashboard />, label: 'Dashboard', path: '/dashboard' },
   { icon: <Compass />, label: 'Explore Events', path: '/explore' },
   { icon: <PlusCircle />, label: 'Create Event', path: '/create-event' },
+  { icon: <Ticket />, label: 'My Events', path: '/events' },
   { icon: <Ticket />, label: 'My Tickets', path: '/tickets' },
   { icon: <Wallet />, label: 'My Wallet', path: '/wallet' },
   { icon: <Shield />, label: 'Ticket Verification', path: '/verify' },
+  { icon: <QrCode />, label: 'Attendance Scan', path: '/attendance-scan' },  // Added new link
   { icon: <Users />, label: 'Organizers Hub', path: '/organizers' },
   { icon: <Settings />, label: 'Settings', path: '/settings' },
 ];
@@ -48,20 +51,27 @@ const Sidebar: React.FC<SidebarProps> = ({ onNavigate, currentPath }) => {
 
       {/* Navigation Links */}
       <nav className="flex-1 pt-6">
-        {navLinks.map((link) => (
-          <button
-            key={link.path}
-            onClick={() => onNavigate(link.path)}
-            className={`w-full flex items-center gap-3 px-6 py-3 text-lg transition-colors ${
-              currentPath === link.path
-                ? 'text-white bg-primary/10'
-                : 'text-textGray hover:text-white hover:bg-primary/5'
-            }`}
-          >
-            <span className="w-6 h-6">{link.icon}</span>
-            <span className="font-inter font-normal">{link.label}</span>
-          </button>
-        ))}
+        {navLinks.map((link) => {
+          const isActive = currentPath === link.path;
+          return (
+            <button
+              key={link.path}
+              onClick={() => onNavigate(link.path)}
+              className={`w-full flex items-center gap-3 px-6 py-3 text-lg transition-all duration-200 ${
+                isActive
+                  ? 'text-primary bg-primary/10 border-l-4 border-primary'
+                  : 'text-textGray hover:text-white hover:bg-primary/5 border-l-4 border-transparent'
+              }`}
+            >
+              <span className={`w-6 h-6 ${isActive ? 'text-primary' : ''}`}>
+                {link.icon}
+              </span>
+              <span className={`font-inter font-normal ${isActive ? 'font-medium' : ''}`}>
+                {link.label}
+              </span>
+            </button>
+          );
+        })}
       </nav>
     </div>
   );
