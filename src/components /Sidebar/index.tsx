@@ -12,6 +12,8 @@ import {
   QrCode, // Added for Attendance Scan
 } from 'lucide-react';
 
+import { TicketCityLogo, ProfileImg } from '../../assets';
+
 interface SidebarProps {
   onNavigate: (path: string) => void;
   currentPath: string;
@@ -37,12 +39,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onNavigate, currentPath }) => {
     <div className="w-64 h-full bg-background border-r border-borderStroke flex flex-col">
       {/* Logo */}
       <div className="p-6">
-        <img src="/logo.svg" alt="TicketCity" className="h-8" />
+        <img src={TicketCityLogo} alt="TicketCity" className="h-16" />
       </div>
 
       {/* User Profile */}
       <div className="px-6 py-4 flex items-center gap-2 border-b border-borderStroke">
-        <img src="/placeholder-avatar.jpg" alt="User" className="w-10 h-10 rounded-full" />
+        <img src={ProfileImg} alt="User" className="w-10 h-10 rounded-full" />
         <span className="text-white font-inter text-sm flex-1">JasonDoe123</span>
         <ChevronDown className="w-4 h-4 text-textGray" />
       </div>

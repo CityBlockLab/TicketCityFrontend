@@ -38,18 +38,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 transition duration-200 ease-in-out z-30`}
       >
-        <Sidebar 
-          onNavigate={handleNavigation} 
-          currentPath={location.pathname}
-        />
+        <Sidebar onNavigate={handleNavigation} currentPath={location.pathname} />
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-screen overflow-y-scroll">
         <Header />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto">
-          {children}
-        </main>
+        <main className="flex-1 overflow-x-hidden overflow-y-auto">{children}</main>
       </div>
 
       {/* Overlay */}

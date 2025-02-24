@@ -5,11 +5,9 @@ import ManageEventsComponent from '../../components /Events/ManageEvents';
 
 const ManageEventsPage: React.FC = () => {
   return (
-    <Layout>
-      <div className="flex flex-col min-h-screen">
-        <ManageEventsComponent />
-      </div>
-    </Layout>
+    <div className="flex flex-col min-h-screen">
+      <ManageEventsComponent />
+    </div>
   );
 };
 

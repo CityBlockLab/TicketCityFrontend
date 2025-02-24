@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
- .gradient-text {
-    background: linear-gradient(128.92deg, #FFD5A4 0.66%, #FF8A00 110.05%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  } 
+.gradient-text {
+  background: linear-gradient(128.92deg, #ffd5a4 0.66%, #ff8a00 110.05%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+box-shadow: 1px 1px 10px 0px #ffffff40;

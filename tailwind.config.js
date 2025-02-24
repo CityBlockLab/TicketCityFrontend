@@ -25,6 +25,7 @@ export default {
         wider: '0.05em',
       },
       fontFamily: {
+        exo: ['Exo+2', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
         orbitron: ['Orbitron', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
@@ -35,6 +36,7 @@ export default {
       },
       boxShadow: {
         'button-inset': '1px 1px 10px 0px #FFFFFF40 inset',
+        'button-no-inset': '1px 1px 10px 0px #FFFFFF40',
       },
     },
   },
