@@ -64,7 +64,7 @@ const CreateEventFormComponent = () => {
 
   return (
     <div className="min-h-screen bg-background p-8">
-      <div className="max-w-[80%] mx-auto border border-[#3A3A3A] rounded-lg shadow-[1px_1px_10px_0px_#FFFFFF40] p-8">
+      <div className="max-w-[80%] mx-auto border border-[#3A3A3A] rounded-xl shadow-[1px_1px_10px_0px_#FFFFFF40] p-8">
         <h1 className="text-white text-2xl font-bold mb-8 text-center">
           Create New Event
         </h1>
@@ -75,7 +75,7 @@ const CreateEventFormComponent = () => {
             value={formData.title}
             onChange={handleChange}
             required
-            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            className="w-full bg-transparent border border-borderStroke rounded-xl p-3 text-white"
             placeholder="Event Title"
           />
 
@@ -87,7 +87,7 @@ const CreateEventFormComponent = () => {
               value={formData.startDateTime}
               onChange={handleChange}
               required
-              className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+              className="w-full bg-transparent border border-borderStroke rounded-xl p-3 text-white"
             />
           </div>
 
@@ -99,7 +99,7 @@ const CreateEventFormComponent = () => {
               value={formData.endDateTime}
               onChange={handleChange}
               required
-              className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+              className="w-full bg-transparent border border-borderStroke rounded-xl p-3 text-white"
             />
           </div>
 
@@ -109,7 +109,7 @@ const CreateEventFormComponent = () => {
             value={formData.location}
             onChange={handleChange}
             required
-            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            className="w-full bg-transparent border border-borderStroke rounded-xl p-3 text-white"
             placeholder="Location"
           />
 
@@ -118,7 +118,7 @@ const CreateEventFormComponent = () => {
             value={formData.description}
             onChange={handleChange}
             required
-            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white min-h-[100px]"
+            className="w-full bg-transparent border border-borderStroke rounded-xl p-3 text-white min-h-[100px]"
             placeholder="Description"
           />
 
@@ -127,7 +127,7 @@ const CreateEventFormComponent = () => {
             name="image"
             onChange={handleChange}
             accept="image/*"
-            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            className="w-full bg-transparent border border-borderStroke rounded-xl p-3 text-white"
           />
 
           <input
@@ -137,7 +137,7 @@ const CreateEventFormComponent = () => {
             onChange={handleChange}
             required
             min="1"
-            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            className="w-full bg-transparent border border-borderStroke rounded-xl p-3 text-white"
             placeholder="Capacity"
           />
 
@@ -147,7 +147,7 @@ const CreateEventFormComponent = () => {
               name="eventType"
               value={formData.eventType}
               onChange={handleChange}
-              className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white">
+              className="w-full bg-transparent border border-borderStroke rounded-xl p-3 text-white">
               <option value="FREE">FREE</option>
               <option value="PAID">PAID</option>
             </select>
