@@ -1,15 +1,15 @@
 import React from 'react';
-import { 
-  LayoutDashboard, 
-  Compass, 
-  PlusCircle, 
-  Ticket, 
+import {
+  LayoutDashboard,
+  Compass,
+  PlusCircle,
+  Ticket,
   Wallet,
-  Shield, 
+  Shield,
   Users,
   Settings,
   ChevronDown,
-  QrCode  // Added for Attendance Scan
+  QrCode, // Added for Attendance Scan
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -25,8 +25,10 @@ const navLinks = [
   { icon: <Ticket />, label: 'My Tickets', path: '/tickets' },
   { icon: <Wallet />, label: 'My Wallet', path: '/wallet' },
   { icon: <Shield />, label: 'Ticket Verification', path: '/verify' },
-  { icon: <QrCode />, label: 'Attendance Scan', path: '/attendance-scan' },  // Added new link
+  { icon: <QrCode />, label: 'Attendance Scan', path: '/attendance-scan' }, // Added new link
   { icon: <Users />, label: 'Organizers Hub', path: '/organizers' },
+  { icon: <Settings />, label: 'My Events', path: '/my-events' },
+  { icon: <Settings />, label: 'Manage Events', path: '/manage-event/:id' },
   { icon: <Settings />, label: 'Settings', path: '/settings' },
 ];
 
@@ -40,11 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onNavigate, currentPath }) => {
 
       {/* User Profile */}
       <div className="px-6 py-4 flex items-center gap-2 border-b border-borderStroke">
-        <img
-          src="/placeholder-avatar.jpg"
-          alt="User"
-          className="w-10 h-10 rounded-full"
-        />
+        <img src="/placeholder-avatar.jpg" alt="User" className="w-10 h-10 rounded-full" />
         <span className="text-white font-inter text-sm flex-1">JasonDoe123</span>
         <ChevronDown className="w-4 h-4 text-textGray" />
       </div>
@@ -63,9 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onNavigate, currentPath }) => {
                   : 'text-textGray hover:text-white hover:bg-primary/5 border-l-4 border-transparent'
               }`}
             >
-              <span className={`w-6 h-6 ${isActive ? 'text-primary' : ''}`}>
-                {link.icon}
-              </span>
+              <span className={`w-6 h-6 ${isActive ? 'text-primary' : ''}`}>{link.icon}</span>
               <span className={`font-inter font-normal ${isActive ? 'font-medium' : ''}`}>
                 {link.label}
               </span>

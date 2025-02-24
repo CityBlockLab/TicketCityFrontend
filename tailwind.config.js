@@ -10,7 +10,8 @@ export default {
         textGray: '#A5A5A5',
         textWhite: '#FFFFFF',
         primary: '#FF8A00',
-        secondary: '#FFD5A4', 
+        secondary: '#FFD5A4',
+        shadowBg: '#15121e',
       },
       fontSize: {
         small: ['14px', '20px'],
@@ -39,5 +40,3 @@ export default {
   },
   plugins: [],
 };
-
-
