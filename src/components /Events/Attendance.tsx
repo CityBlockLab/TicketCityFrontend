@@ -17,7 +17,7 @@ const AttendanceComponent = () => {
       </header>
 
       {/* QR Scanner Section */}
-      <div className="w-full max-w-2xl mx-auto mb-8 rounded-2xl shadow-button-inset p-8 flex flex-col items-center">
+      <div className="w-full max-w-[90%] mx-auto mb-8 rounded-2xl shadow-button-inset p-8 flex flex-col items-center">
         <h2 className="font-poppins font-medium text-large leading-[42px] text-white mb-8">
           Scan QR for Attendance
         </h2>
@@ -30,18 +30,17 @@ const AttendanceComponent = () => {
       </div>
 
       {/* Manual Entry Section */}
-      <div className="w-full max-w-2xl mx-auto rounded-2xl border border-borderStroke shadow-button-inset p-8">
+      <div className="w-full max-w-[90%] mx-auto rounded-2xl border border-borderStroke shadow-button-inset p-8">
         <h2 className="font-poppins font-medium text-large leading-[42px] text-white mb-6">
           Manual Attendance Entry
         </h2>
-        
-        <div className="flex gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-8">
           <input
             type="text"
             placeholder="Enter Attendee Code"
-            className="flex-1 px-4 py-2 rounded-lg border border-borderStroke bg-searchBg backdrop-blur-[30px] font-inter font-normal text-base leading-[25px] text-white placeholder:text-white/60"
+            className="w-full sm:w-[30rem] px-4 py-2 rounded-md border border-borderStroke bg-searchBg backdrop-blur-[30px] font-inter font-normal text-base leading-[25px] text-white placeholder:text-white/60"
           />
-          <button className="bg-primary rounded-lg px-6 py-2 font-poppins font-medium text-base text-white hover:opacity-90 transition-opacity">
+          <button className="w-full sm:w-auto bg-primary rounded-lg px-6 py-2 font-poppins font-medium text-base text-white hover:opacity-90 transition-opacity">
             Submit
           </button>
         </div>
