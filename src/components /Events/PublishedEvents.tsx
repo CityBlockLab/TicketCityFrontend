@@ -11,8 +11,6 @@ interface PublishedEventsProps {
     description: string;
     capacity: string;
     image: string;
-    blockchain: string;
-    smartContract: string;
     ticket?: {
       type: string;
       price: string;

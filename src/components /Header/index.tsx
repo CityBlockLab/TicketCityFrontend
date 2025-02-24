@@ -1,18 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search, Bell, Plus } from "lucide-react";
-import { useConnectWallet, useWallets } from "@privy-io/react-auth";
+import { usePrivy, useWallets, useUser } from "@privy-io/react-auth";
 
 const Header: React.FC = () => {
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const { login } = usePrivy();
+  const { authenticated } = usePrivy();
+  const { wallets } = useWallets();
+  const { user, refreshUser } = useUser();
 
-  const walletAddress = "0x1234...5678";
+  // Function to truncate address
+  const truncateAddress = (address: string) => {
+    if (!address) return "";
+    return `${address.slice(0, 4)}...${address.slice(-4)}`;
+  };
 
-  const { connectWallet } = useConnectWallet({
-    onSuccess() {
-      console.log("Connected");
-      setIsWalletConnected(true);
-    },
-  });
+  console.log(user);
+
+  // Get the first wallet address if available
+  const currentAddress = wallets?.[0]?.address;
+  const displayAddress = authenticated
+    ? truncateAddress(currentAddress)
+    : "Connect Wallet";
+
+  // Refresh user data when wallet changes
+  useEffect(() => {
+    const handleUserRefresh = async () => {
+      if (authenticated && currentAddress) {
+        await refreshUser();
+        console.log("User data refreshed:", user);
+      }
+    };
+
+    handleUserRefresh();
+  }, [authenticated, currentAddress, refreshUser]);
+
+  // Handle wallet connection
+  const handleConnect = async () => {
+    try {
+      login();
+      await refreshUser();
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+    }
+  };
 
   return (
     <header className="bg-background border-b border-borderStroke p-4">
@@ -37,9 +67,9 @@ const Header: React.FC = () => {
         <div className="flex items-center gap-4">
           {/* Connect Wallet Button */}
           <button
-            onClick={connectWallet}
+            onClick={handleConnect}
             className="px-4 py-2 rounded-full bg-searchBg shadow-button-inset text-white font-inter text-sm">
-            {isWalletConnected ? walletAddress : "Connect Wallet"}
+            {displayAddress}
           </button>
 
           {/* Notification Icon */}
@@ -50,7 +80,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Create Button */}
-          <button className="bg-button-gradient px-4 py-2 rounded-full flex items-center gap-2 text-white font-inter text-sm">
+          <button onClick={() => "/create-event"} className="bg-button-gradient px-4 py-2 rounded-full flex items-center gap-2 text-white font-inter text-sm">
             <Plus className="w-4 h-4" />
             <span>Create</span>
           </button>

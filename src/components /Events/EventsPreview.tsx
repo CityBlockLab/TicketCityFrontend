@@ -1,164 +1,167 @@
-import React, { useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-interface EventPreviewProps {
-  eventData: {
-    title: string;
-    date: string;
-    time: string;
-    location: string;
-    description: string;
-    capacity: string;
-    image: string | null;
-    blockchain: string;
-    smartContract: string;
-  };
-  onBack: () => void;
-  onPublish: (ticketData: any) => void;
-  onEdit: () => void;
+interface EventFormData {
+  title: string;
+  startDateTime: string;
+  endDateTime: string;
+  location: string;
+  description: string;
+  capacity: number;
+  image: File | null;
+  eventType: "FREE" | "PAID";
 }
 
-const EventPreviewComponent: React.FC<EventPreviewProps> = ({ 
-  eventData, 
-  onBack, 
-  onPublish, 
-  onEdit 
-}) => {
-  const [ticketType, setTicketType] = useState('FREE');
-  const [ticketPrice, setTicketPrice] = useState('');
-  const [ticketImage, setTicketImage] = useState<File | null>(null);
-  const [agreeToTerms, setAgreeToTerms] = useState(false);
+interface Ticket {
+  type: "REGULAR" | "VIP";
+  price?: number;
+}
 
-  const handlePublish = () => {
-    if (!agreeToTerms) return;
-    
-    const ticketData = {
-      type: ticketType,
-      price: ticketPrice,
-      image: ticketImage
-    };
+const EventPreview = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const eventData = location.state as EventFormData | null;
 
-    // Store ticket data along with event data
-    const publishData = {
-      ...eventData,
-      ticket: ticketData
-    };
-    
-    // Store the complete data before publishing
-    localStorage.setItem('publishedEventData', JSON.stringify(publishData));
-    
-    // Call the onPublish handler
-    onPublish(publishData);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+
+  if (!eventData) {
+    return <p className="text-white text-center">No event data available.</p>;
+  }
+
+  const handleAddTicket = () => {
+    setTickets([
+      ...tickets,
+      {
+        type: "REGULAR",
+        price: eventData.eventType === "PAID" ? 0 : undefined,
+      },
+    ]);
   };
 
-  const handleTicketImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setTicketImage(file);
-      // Convert to base64 if needed
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result;
-        localStorage.setItem('ticketImage', base64String as string);
-      };
-      reader.readAsDataURL(file);
+  const handleTicketChange = (index: number, field: string, value: any) => {
+    const updatedTickets = [...tickets];
+    if (field === "price") {
+      updatedTickets[index].price = value ? Number(value) : 0;
+    } else {
+      updatedTickets[index].type = value;
     }
+    setTickets(updatedTickets);
+  };
+
+  const handleEditEvent = () => {
+    navigate("/create-event", { state: eventData });
   };
 
   return (
     <div className="min-h-screen bg-background p-8">
-      {/* Back Button */}
-      <button 
-        onClick={onBack}
-        className="mb-8 flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-[#3A3A3A] bg-background hover:opacity-80 shadow-[inset_1px_1px_10px_0px_#FFFFFF40]"
-      >
-        <ArrowLeft className="w-5 h-5 text-white" />
-        <span className="font-inter text-regular text-white">Back</span>
-      </button>
+      <div className="max-w-[80%] mx-auto border border-[#3A3A3A] rounded-lg shadow-[1px_1px_10px_0px_#FFFFFF40] p-8">
+        <h1 className="text-white text-2xl font-bold mb-4 text-center">
+          Event Preview
+        </h1>
 
-      <div className="max-w-[80%] mx-auto space-y-6">
-        {/* Preview Content */}
-        <div className="border border-[#3A3A3A] rounded-lg shadow-[1px_1px_10px_0px_#FFFFFF40] p-8">
-          <h1 className="text-white text-2xl font-bold text-center mb-2">Event Preview</h1>
-          <p className="text-gray-400 text-center mb-8">Review your event details before publishing.</p>
-          
-          {/* Event Preview Content */}
-          {/* ... rest of the preview content ... */}
+        {/* Event Details */}
+        <div className="border border-borderStroke p-6 rounded-lg bg-searchBg">
+          {eventData.image && (
+            <img
+              src={URL.createObjectURL(eventData.image)}
+              alt="Event"
+              className="w-full h-64 object-cover rounded-lg mb-4"
+            />
+          )}
+          <h2 className="text-white text-xl font-semibold">
+            {eventData.title}
+          </h2>
+          <p className="text-white">
+            <strong>Date:</strong>{" "}
+            {new Date(eventData.startDateTime).toDateString()} -{" "}
+            {new Date(eventData.endDateTime).toDateString()}
+          </p>
+          <p className="text-white">
+            <strong>Time:</strong>{" "}
+            {new Date(eventData.startDateTime).toLocaleTimeString()} -{" "}
+            {new Date(eventData.endDateTime).toLocaleTimeString()}
+          </p>
+          <p className="text-white">
+            <strong>Location:</strong> {eventData.location}
+          </p>
+          <p className="text-white">
+            <strong>Attendees Capacity:</strong> {eventData.capacity}
+          </p>
+          <p className="text-white">
+            <strong>Type:</strong> {eventData.eventType}
+          </p>
         </div>
 
-        {/* Create Ticket Section */}
-        <div className="border border-[#3A3A3A] rounded-lg shadow-[1px_1px_10px_0px_#FFFFFF40] p-8">
-          <h2 className="text-white text-xl font-bold mb-6">Create Ticket</h2>
-          
-          <div className="space-y-6">
-            <div>
-              <label className="block text-white mb-2">Select Ticket Type</label>
-              <select
-                value={ticketType}
-                onChange={(e) => setTicketType(e.target.value)}
-                className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-              >
-                <option value="FREE">FREE</option>
-                <option value="REGULAR">REGULAR</option>
-                <option value="VIP">VIP</option>
-              </select>
-            </div>
+        {/* Ticket Creation Section */}
+        <div className="mt-8 border border-borderStroke p-6 rounded-lg bg-searchBg">
+          <h2 className="text-white text-xl font-semibold mb-4">
+            Create Ticket
+          </h2>
 
-            {ticketType !== 'FREE' && (
-              <>
-                <div>
-                  <label className="block text-white mb-2">Ticket Price (XFI)</label>
+          {tickets.map((ticket, index) => (
+            <div
+              key={index}
+              className="mb-4 p-4 border border-borderStroke rounded-lg">
+              <label className="block text-white mb-2">Ticket Type</label>
+              <select
+                value={ticket.type}
+                onChange={(e) =>
+                  handleTicketChange(index, "type", e.target.value)
+                }
+                className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white">
+                {eventData.eventType === "PAID" ? (
+                  <>
+                    <option value="REGULAR">REGULAR</option>
+                    <option value="VIP">VIP</option>
+                  </>
+                ) : (
+                  <option value="FREE">FREE</option>
+                )}
+              </select>
+
+              {/* Show price input only for PAID event */}
+              {eventData.eventType === "PAID" && (
+                <div className="mt-4">
+                  <label className="block text-white mb-2">
+                    Ticket Price ($)
+                  </label>
                   <input
                     type="number"
-                    value={ticketPrice}
-                    onChange={(e) => setTicketPrice(e.target.value)}
+                    value={ticket.price || ""}
+                    onChange={(e) =>
+                      handleTicketChange(index, "price", e.target.value)
+                    }
                     className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                    placeholder="Enter price in XFI"
+                    min="0"
+                    placeholder="Enter ticket price"
+                    required
                   />
                 </div>
-                <div>
-                  <label className="block text-white mb-2">Upload Ticket Image</label>
-                  <input
-                    type="file"
-                    onChange={handleTicketImageChange}
-                    accept="image/*"
-                    className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                  />
-                </div>
-              </>
-            )}
-
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={agreeToTerms}
-                onChange={(e) => setAgreeToTerms(e.target.checked)}
-                className="rounded border-borderStroke"
-              />
-              <label className="text-gray-400">I agree to the Terms and Policy</label>
+              )}
             </div>
+          ))}
 
-            <div className="flex justify-between pt-6">
-              <button
-                onClick={onEdit}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#3A3A3A] text-white"
-              >
-                Edit Event
-              </button>
-              
-              <button
-                onClick={handlePublish}
-                disabled={!agreeToTerms}
-                className={`px-6 py-2 bg-primary text-white rounded-lg ${!agreeToTerms ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'}`}
-              >
-                PUBLISH EVENT
-              </button>
-            </div>
-          </div>
+          <button
+            onClick={handleAddTicket}
+            className="w-full bg-primary text-white py-3 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity mt-4">
+            Add Ticket
+          </button>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-between mt-8">
+          <button
+            onClick={handleEditEvent}
+            className="bg-searchBg text-white py-3 px-6 rounded-lg font-semibold hover:opacity-80">
+            Edit Event
+          </button>
+          <button className="bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:opacity-80">
+            Publish Event
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default EventPreviewComponent;
+export default EventPreview;

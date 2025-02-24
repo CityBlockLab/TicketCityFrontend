@@ -1,176 +1,161 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-interface CreateEventFormProps {
-  onContinue: (formData: {
-    title: string;
-    date: string;
-    time: string;
-    location: string;
-    description: string;
-    capacity: string;
-    image: File | null;
-    blockchain: string;
-    smartContract: string;
-  }) => void;
+interface EventFormData {
+  title: string;
+  startDateTime: string;
+  endDateTime: string;
+  location: string;
+  description: string;
+  capacity: number;
+  image: File | null;
+  eventType: "FREE" | "PAID";
 }
 
-const CreateEventFormComponent = ({ onContinue }: CreateEventFormProps) => {
-  const [formData, setFormData] = useState({
-    title: '',
-    date: '',
-    time: '',
-    location: '',
-    description: '',
-    capacity: '',
-    image: null,
-    blockchain: 'Ethereum',
-    smartContract: ''
-  });
+const CreateEventFormComponent = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const existingData = location.state as EventFormData | null;
 
-  const handleChange = (e : any) => {
-    const { name, value, files } = e.target;
-    if (name === 'image' && files) {
-      setFormData(prev => ({
-        ...prev,
-        image: files[0]
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
+  const [formData, setFormData] = useState<EventFormData>(
+    existingData || {
+      title: "",
+      startDateTime: "",
+      endDateTime: "",
+      location: "",
+      description: "",
+      capacity: 0,
+      image: null,
+      eventType: "FREE",
     }
+  );
+
+//   const [errors, setErrors] = useState<{
+//     startDateTime?: string;
+//     endDateTime?: string;
+//     capacity?: string;
+//   }>({});
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value, files } = e.target as HTMLInputElement;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        name === "image"
+          ? files && files.length > 0
+            ? files[0]
+            : null
+          : name === "capacity"
+          ? Number(value)
+          : value,
+    }));
   };
 
-  const handleSubmit = (e : any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onContinue(formData);
+
+    navigate("/event-preview", { state: formData }); // ✅ Pass full formData to preview
   };
 
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-[80%] mx-auto border border-[#3A3A3A] rounded-lg shadow-[1px_1px_10px_0px_#FFFFFF40] p-8">
-        <h1 className="text-white text-2xl font-bold mb-8 text-center">Create New Event</h1>
-        
+        <h1 className="text-white text-2xl font-bold mb-8 text-center">
+          Create New Event
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-4">
-            <div>
-              <label className="block text-white mb-2">Event Title</label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                required
-              />
-            </div>
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            placeholder="Event Title"
+          />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-white mb-2">Date</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-white mb-2">Time</label>
-                <input
-                  type="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleChange}
-                  className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                  required
-                />
-              </div>
-            </div>
+          <div>
+            <label className="block text-white mb-2">Start Date & Time</label>
+            <input
+              type="datetime-local"
+              name="startDateTime"
+              value={formData.startDateTime}
+              onChange={handleChange}
+              required
+              className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            />
+          </div>
 
-            <div>
-              <label className="block text-white mb-2">Location</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                required
-              />
-            </div>
+          <div>
+            <label className="block text-white mb-2">End Date & Time</label>
+            <input
+              type="datetime-local"
+              name="endDateTime"
+              value={formData.endDateTime}
+              onChange={handleChange}
+              required
+              className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            />
+          </div>
 
-            <div>
-              <label className="block text-white mb-2">Description</label>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white min-h-[100px]"
-                required
-              />
-            </div>
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            placeholder="Location"
+          />
 
-            <div>
-              <label className="block text-white mb-2">Event Banner Image</label>
-              <input
-                type="file"
-                name="image"
-                onChange={handleChange}
-                accept="image/*"
-                className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                required
-              />
-            </div>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white min-h-[100px]"
+            placeholder="Description"
+          />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-white mb-2">Blockchain</label>
-                <select
-                  name="blockchain"
-                  value={formData.blockchain}
-                  onChange={handleChange}
-                  className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                >
-                  <option value="Ethereum">Ethereum</option>
-                  <option value="Polygon">Polygon</option>
-                  <option value="Solana">Solana</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-white mb-2">Smart Contract</label>
-                <input
-                  type="text"
-                  name="smartContract"
-                  value={formData.smartContract}
-                  onChange={handleChange}
-                  className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                  placeholder="0x..."
-                  required
-                />
-              </div>
-            </div>
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+            accept="image/*"
+            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+          />
 
-            <div>
-              <label className="block text-white mb-2">Capacity</label>
-              <input
-                type="number"
-                name="capacity"
-                value={formData.capacity}
-                onChange={handleChange}
-                className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
-                required
-              />
-            </div>
+          <input
+            type="number"
+            name="capacity"
+            value={formData.capacity}
+            onChange={handleChange}
+            required
+            min="1"
+            className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white"
+            placeholder="Capacity"
+          />
+
+          <div>
+            <label className="block text-white mb-2">Event Type</label>
+            <select
+              name="eventType"
+              value={formData.eventType}
+              onChange={handleChange}
+              className="w-full bg-searchBg border border-borderStroke rounded-lg p-3 text-white">
+              <option value="FREE">FREE</option>
+              <option value="PAID">PAID</option>
+            </select>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-primary text-white py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity"
-          >
+            className="w-full bg-primary text-white py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity">
             Continue
           </button>
         </form>
