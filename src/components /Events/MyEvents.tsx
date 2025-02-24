@@ -82,15 +82,15 @@ const MyEventsComponent: React.FC = () => {
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="rounded-2xl  border border-borderStroke shadow-button-inset p-6">
+        <div className="rounded-2xl hover:scale-105 hover:shadow-button-inset  border border-borderStroke shadow-light-inset-shadow p-6">
           <h3 className="text-white text-lg font-poppins mb-2">Total Revenue</h3>
           <p className="text-primary text-2xl font-bold">3,500 XFI</p>
         </div>
-        <div className="rounded-2xl border border-borderStroke shadow-button-inset p-6">
+        <div className="rounded-2xl hover:scale-105 hover:shadow-button-inset  border border-borderStroke shadow-light-inset-shadow p-6">
           <h3 className="text-white text-lg font-poppins mb-2">Revenue Pending</h3>
           <p className="text-primary text-2xl font-bold">1,200 XFI</p>
         </div>
-        <div className="rounded-2xl border border-borderStroke shadow-button-inset p-6">
+        <div className="rounded-2xl hover:scale-105 hover:shadow-button-inset  border border-borderStroke shadow-light-inset-shadow p-6">
           <h3 className="text-white text-lg font-poppins mb-2">Refunds Issued</h3>
           <p className="text-primary text-2xl font-bold">300 XFI</p>
         </div>
@@ -106,7 +106,7 @@ const MyEventsComponent: React.FC = () => {
             onClick={() => navigate('/create-event')}
             className="bg-primary rounded-lg px-4 py-2 font-poppins text-white flex items-center gap-2 hover:opacity-90 transition-opacity"
           >
-            <Plus size={18} />
+            <Plus size={24} />
             Create New Event
           </button>
         </div>
@@ -117,10 +117,10 @@ const MyEventsComponent: React.FC = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded-lg font-poppins ${
+              className={`px-4 py-2 rounded-xl font-poppins ${
                 activeTab === tab
                   ? 'bg-primary text-white'
-                  : 'bg-[#15121e] text-textGray hover:text-white'
+                  : ' text-textGray border border-borderStroke hover:text-white'
               }`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -156,7 +156,7 @@ const MyEventsComponent: React.FC = () => {
                 </div>
                 <button
                   onClick={() => navigate(`/manage-event/${event.id}`)}
-                  className="w-full bg-primary rounded-lg py-2 text-center text-white font-poppins hover:opacity-90 transition-opacity"
+                  className="w-full bg-primary rounded-2xl py-1 text-center text-white font-inter font-normal hover:opacity-90 transition-opacity"
                 >
                   Manage
                 </button>

@@ -37,6 +37,9 @@ export default {
       boxShadow: {
         'button-inset': '1px 1px 10px 0px #FFFFFF40 inset',
         'button-no-inset': '1px 1px 10px 0px #FFFFFF40',
+
+        'hover-shadow': '0.5px 1px 30px 0px #FFFFFF40 inset',
+        'light-inset-shadow': '0.5px 0.5px 10px 0px #FFFFFF1F inset',
       },
     },
   },
