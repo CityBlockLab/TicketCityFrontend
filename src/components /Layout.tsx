@@ -1,5 +1,5 @@
-// components/Layout.tsx
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import { MenuIcon, XIcon } from 'lucide-react';
@@ -10,6 +10,13 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    setIsSidebarOpen(false); // Close sidebar on mobile after navigation
+  };
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -31,7 +38,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 transition duration-200 ease-in-out z-30`}
       >
-        <Sidebar />
+        <Sidebar 
+          onNavigate={handleNavigation} 
+          currentPath={location.pathname}
+        />
       </div>
 
       {/* Main content */}

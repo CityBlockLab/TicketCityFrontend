@@ -1,4 +1,9 @@
-import { defineChain, createPublicClient, http } from "viem";
+import {
+  defineChain,
+  createPublicClient,
+  http,
+  createWalletClient,
+} from "viem";
 
 export const crossfiTestnet = defineChain({
   id: 4157,
@@ -18,11 +23,16 @@ export const crossfiTestnet = defineChain({
   },
 });
 
-const client = createPublicClient({
-  chain: crossfiTestnet,
-  transport: http(),
-});
+export const createWalletClientInstance = () => {
+  return createWalletClient({
+    chain: crossfiTestnet,
+    transport: http(),
+  });
+};
 
-const blockNumber = await client.getBlockNumber();
-
-export default `Block number: ${blockNumber}`;
+export const createPublicClientInstance = () => {
+  return createPublicClient({
+    chain: crossfiTestnet,
+    transport: http(),
+  });
+};

@@ -20,23 +20,19 @@ createRoot(document.getElementById("root")!).render(
         },
         supportedChains: [crossfiTestnet],
         appearance: {
-          accentColor: "#6A6FF5",
-          theme: "#FFFFFF",
+          accentColor: "#FF8A00",
+          theme: "#090014",
           showWalletLoginFirst: false,
-          logo: "https://auth.privy.io/logos/privy-logo.png",
+          logo: "",
           walletChainType: "ethereum-only",
           walletList: [
-            "detected_wallets",
+            "detected_ethereum_wallets",
             "phantom",
-            "solflare",
-            "backpack",
             "okx_wallet",
+            "uniswap",
+            "bybit_wallet",
+            "wallet_connect",
           ],
-        },
-        fundingMethodConfig: {
-          moonpay: {
-            useSandbox: true,
-          },
         },
         embeddedWallets: {
           requireUserPasswordOnCreate: false,
