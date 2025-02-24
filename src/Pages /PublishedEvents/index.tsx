@@ -6,7 +6,7 @@ interface EventData {
   title: string;
   date: string;
   time: string;
-  location: string;
+  location: string; 
   description: string;
   capacity: string;
   image: string;
