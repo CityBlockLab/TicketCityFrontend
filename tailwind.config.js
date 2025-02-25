@@ -12,6 +12,7 @@ export default {
         primary: '#FF8A00',
         secondary: '#FFD5A4',
         shadowBg: '#15121e',
+        purpleUtil: '#9747FF',
       },
       fontSize: {
         small: ['14px', '20px'],

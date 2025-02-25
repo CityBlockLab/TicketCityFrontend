@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutGrid, List } from 'lucide-react';
+
 import EventCard from './EventsCard';
 import { Event, EventFilter, ViewMode } from '../../types';
 import { EventImg1 } from '../../assets';
@@ -129,63 +129,17 @@ const EventsDashboardHome: React.FC = () => {
   return (
     <div className="p-6">
       {/* Filters and Sort */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <div className="flex flex-wrap gap-2">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 rounded-full font-inter text-sm
-                ${
-                  activeFilter === filter
-                    ? 'bg-primary  text-white'
-                    : 'text-textGray hover:text-white'
-                }`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-4">
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as any)}
-            className="bg-searchBg text-white rounded-lg px-4 py-2 font-inter text-sm"
-          >
-            <option value="Date">Date</option>
-            <option value="Popularity">Popularity</option>
-            <option value="Ticket Price">Ticket Price</option>
-          </select>
-        </div>
-      </div>
 
       {/* Events Grid/List */}
-      <div
-        className={`grid gap-6 mb-8 ${
-          viewMode === 'grid'
-            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-            : 'grid-cols-1'
-        }`}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
         {paginatedEvents.map((event) => (
           <EventCard key={event.id} event={event} viewMode={viewMode} />
         ))}
       </div>
 
       {/* View Toggle and Pagination */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <button
-          onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
-          className="flex items-center gap-2 text-textGray hover:text-white"
-        >
-          {viewMode === 'grid' ? <List className="w-4 h-4" /> : <LayoutGrid className="w-4 h-4" />}
-          <span className="font-inter text-sm">
-            Switch to {viewMode === 'grid' ? 'List' : 'Grid'} View
-          </span>
-        </button>
-
-        <div className="flex items-center gap-2">
+      {/* <div className=" items-center relative   gap-4">
+        <div className="flex items-center right-3  absolute gap-2">
           {Array.from({ length: totalPages }).map((_, index) => (
             <button
               key={index}
@@ -201,7 +155,7 @@ const EventsDashboardHome: React.FC = () => {
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

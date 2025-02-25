@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../../components /Layout';
 import EventsDashboardHome from '../../components /Events/EventsHome';
 
-const MyEventsPage: React.FC = () => {
+const EventsDashboardPage: React.FC = () => {
   return (
     <Layout>
       <div className="flex flex-col min-h-screen">
@@ -12,4 +12,4 @@ const MyEventsPage: React.FC = () => {
   );
 };
 
-export default MyEventsPage;
+export default EventsDashboardPage;
