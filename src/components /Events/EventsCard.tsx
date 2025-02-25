@@ -5,7 +5,7 @@ import { Event } from '../../types';
 
 interface EventCardProps {
   event: Event;
-  viewMode: 'grid' | 'list';
+  viewMode?: 'grid' | 'list';
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event, viewMode }) => {
