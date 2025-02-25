@@ -6,6 +6,7 @@ import { EventImg1 } from '../../assets';
 const ManageEventsComponent: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  console.log(id);
 
   return (
     <div className="w-full min-h-screen bg-background border  p-6 px-4 sm:px-6 md:px-[7rem]">
