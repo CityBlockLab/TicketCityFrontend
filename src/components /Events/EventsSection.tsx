@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LayoutGrid, List } from 'lucide-react';
 import EventCard from './EventsCard';
 import { Event, EventFilter, ViewMode } from '../../types';
+import { EventImg1 } from '../../assets';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -22,13 +23,103 @@ const EventsSection: React.FC = () => {
       location: 'Virtual (CrossFi Metaverse)',
       date: 'August 10, 2025 | 3:00 PM',
       price: { regular: 50, vip: 100 },
-      image: '/event-image.jpg'
+      image: EventImg1,
+    },
+    {
+      id: '1',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '2',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '3',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '4',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '5',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '6',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '7',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '8',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '9',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
+    },
+    {
+      id: '10',
+      type: 'Live',
+      title: 'Blockchain Summit',
+      location: 'Virtual (CrossFi Metaverse)',
+      date: 'August 10, 2025 | 3:00 PM',
+      price: { regular: 50, vip: 100 },
+      image: EventImg1,
     },
     // ... add more events
   ];
 
-  const filteredEvents = events.filter(event => 
-    activeFilter === 'All' || event.type === activeFilter
+  const filteredEvents = events.filter(
+    (event) => activeFilter === 'All' || event.type === activeFilter,
   );
 
   const totalPages = Math.ceil(filteredEvents.length / ITEMS_PER_PAGE);
@@ -40,14 +131,15 @@ const EventsSection: React.FC = () => {
       {/* Filters and Sort */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div className="flex flex-wrap gap-2">
-          {filters.map(filter => (
+          {filters.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
               className={`px-4 py-2 rounded-full font-inter text-sm
-                ${activeFilter === filter 
-                  ? 'bg-searchBg shadow-button-inset text-white'
-                  : 'text-textGray hover:text-white'
+                ${
+                  activeFilter === filter
+                    ? 'bg-primary  text-white'
+                    : 'text-textGray hover:text-white'
                 }`}
             >
               {filter}
@@ -69,12 +161,14 @@ const EventsSection: React.FC = () => {
       </div>
 
       {/* Events Grid/List */}
-      <div className={`grid gap-6 mb-8 ${
-        viewMode === 'grid' 
-          ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-          : 'grid-cols-1'
-      }`}>
-        {paginatedEvents.map(event => (
+      <div
+        className={`grid gap-6 mb-8 ${
+          viewMode === 'grid'
+            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+            : 'grid-cols-1'
+        }`}
+      >
+        {paginatedEvents.map((event) => (
           <EventCard key={event.id} event={event} viewMode={viewMode} />
         ))}
       </div>
@@ -97,9 +191,10 @@ const EventsSection: React.FC = () => {
               key={index}
               onClick={() => setCurrentPage(index + 1)}
               className={`w-8 h-8 rounded-full flex items-center justify-center font-inter text-sm
-                ${currentPage === index + 1 
-                  ? 'bg-primary text-white' 
-                  : 'text-textGray hover:text-white'
+                ${
+                  currentPage === index + 1
+                    ? 'bg-primary text-white'
+                    : 'text-textGray hover:text-white'
                 }`}
             >
               {index + 1}

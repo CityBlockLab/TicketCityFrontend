@@ -1,18 +1,36 @@
-import React from 'react';
-import Layout from './components /Layout';
-import Hero from './components /Hero';
-import EventsSection from './components /Events/EventsSection';
-import Footer from './components /Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ExploreEvents from './Pages /EventsExpore';
+import EventDetails from './Pages /EventDetails';
+import CreateEventForm from './Pages /CreateEventsForm';
+import EventPreview from './Pages /EventsPreview';
+import PublishedEvents from './Pages /PublishedEvents';
+import AttendancePage from './Pages /AttendancePage';
+import MyEventsPage from './Pages /MyEvents';
+import ManageEventsPage from './Pages /ManageEventsPage';
+import EventsDashboardPage from './Pages /EventsDashboardPage';
+import './App.css';
+import { usePrivy } from '@privy-io/react-auth';
 
 const App: React.FC = () => {
+  const { ready } = usePrivy();
+
+  if (!ready) return <h2>Wallet getting ready...</h2>;
+
   return (
-    <Layout>
-      <div className="flex flex-col min-h-screen">
-        <Hero />
-        <EventsSection />
-        <Footer />
-      </div>
-    </Layout>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ExploreEvents />} />
+        <Route path="/explore" element={<ExploreEvents />} />
+        <Route path="/event/:id" element={<EventDetails />} />
+        <Route path="/create-event" element={<CreateEventForm />} />
+        <Route path="/event-preview" element={<EventPreview />} />
+        <Route path="/published-events" element={<PublishedEvents />} />
+        <Route path="/attendance-scan" element={<AttendancePage />} />
+        <Route path="/my-events" element={<MyEventsPage />} />
+        <Route path="/manage-event/:id" element={<ManageEventsPage />} />
+        <Route path="/dashboard" element={<EventsDashboardPage />} />
+      </Routes>
+    </Router>
   );
 };
 
