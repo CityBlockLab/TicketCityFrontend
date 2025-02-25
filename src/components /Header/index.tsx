@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Bell, Plus } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useConnectWallet } from '@privy-io/react-auth';
 
 const Header: React.FC = () => {
@@ -18,7 +18,7 @@ const Header: React.FC = () => {
     <header className="bg-background border-b border-borderStroke p-4">
       <div className="flex items-center justify-between gap-4">
         {/* Search Bar */}
-        <div className="flex-1 max-w-2xl">
+        <div className="flex-1 max-w-md">
           <div className="flex">
             <div className="flex-1 relative">
               <input
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
                 className="w-full bg-searchBg border border-borderStroke rounded-l-lg px-4 py-2 text-white font-inter text-sm focus:outline-none"
               />
             </div>
-            <button className="bg-button-gradient px-6 py-2 rounded-r-lg flex items-center justify-center">
+            <button className="bg-button-gradient px-3 py-2 rounded-r-lg flex items-center justify-center">
               <Search className="w-5 h-5 text-white" />
             </button>
           </div>
