@@ -7,7 +7,6 @@ import PublishedEvents from './Pages /PublishedEvents';
 import AttendancePage from './Pages /AttendancePage';
 import MyEventsPage from './Pages /MyEvents';
 import ManageEventsPage from './Pages /ManageEventsPage';
-import EventsDashboardHome from './components /Events/EventsHome';
 import EventsDashboardPage from './Pages /EventsDashboardPage';
 import './App.css';
 import { usePrivy } from '@privy-io/react-auth';
