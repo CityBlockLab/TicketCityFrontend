@@ -138,7 +138,7 @@ const EventsSection: React.FC = () => {
               className={`px-4 py-2 rounded-full font-inter text-sm
                 ${
                   activeFilter === filter
-                    ? 'bg-searchBg shadow-button-inset text-white'
+                    ? 'bg-primary  text-white'
                     : 'text-textGray hover:text-white'
                 }`}
             >
