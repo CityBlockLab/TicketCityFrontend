@@ -119,7 +119,7 @@ const EventsDashboardHome: React.FC = () => {
       {/* Wallet and Ticket Overview Section */}
       <div className="flex flex-col md:flex-row gap-6 mb-8">
         {/* Wallet Info Card */}
-        <div className="bg-gray-900/60 rounded-xl p-6 flex-1 backdrop-blur-sm">
+        <div className="  shadow-button-inset border border-borderStroke  rounded-xl p-6 flex-1 backdrop-blur-sm">
           <h3 className="text-white text-xl font-semibold mb-4">Wallet Address</h3>
           <p className="text-emerald-400 text-lg mb-6">0xA3B...4F1</p>
 
@@ -128,7 +128,7 @@ const EventsDashboardHome: React.FC = () => {
         </div>
 
         {/* Ticket Overview Card */}
-        <div className="bg-gray-900/60 rounded-xl p-6 flex-1 backdrop-blur-sm">
+        <div className="shadow-button-inset border border-borderStroke  rounded-xl p-6 flex-1 backdrop-blur-sm">
           <h3 className="text-white text-xl font-semibold mb-4">Ticket Overview</h3>
 
           <div className="space-y-3">
